@@ -35,19 +35,6 @@ CREATE TABLE IF NOT EXISTS history (
 );
 
 -- ============================================================
--- DATA AWAL (opsional — untuk testing)
--- ============================================================
--- Hapus data lama (opsional, aktifkan jika perlu reset)
--- TRUNCATE TABLE queue_items;
--- TRUNCATE TABLE history;
-
--- Contoh data dummy untuk testing awal
-INSERT INTO queue_items (nomor, tipe, status) VALUES
-    (1, 'reguler',   'waiting'),
-    (2, 'prioritas', 'waiting'),
-    (3, 'reguler',   'waiting');
-
--- ============================================================
 -- CEK HASIL
 -- ============================================================
 SELECT * FROM queue_items;
