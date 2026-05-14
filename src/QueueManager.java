@@ -2,10 +2,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// ================== CODE 2 - CLASS QUEUE MANAGER ==================
-// Dibuat oleh: Daud
+// ================== CLASS QUEUE MANAGER ==================
 // Fungsi: Generate nomor antrian otomatis + simpan ke database MySQL
-// CATATAN: Database akan dikoneksikan nanti. Sementara pakai simulasi in-memory.
 
 public class QueueManager {
     private Connection conn;
@@ -18,11 +16,11 @@ public class QueueManager {
     // Konstruktor: coba buka koneksi ke database
     public QueueManager() {
         try {
-            // TODO: ganti user/password sesuai konfigurasi MySQL
+            // Koneksi ke database antrian_db dengan user root, tanpa password
             conn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/antrian_db",
                     "root",
-                    "password"
+                    ""
             );
             dbTersambung = true;
             nomorTerakhir = getLastNumber();
@@ -74,5 +72,33 @@ public class QueueManager {
     // (dipakai oleh UserService)
     public int getNomorTerakhir() {
         return nomorTerakhir;
+    }
+
+    // Update status di DB
+    public void updateStatus(int nomor, String status) {
+        if (dbTersambung) {
+            try {
+                PreparedStatement ps = conn.prepareStatement("UPDATE queue_items SET status = ? WHERE nomor = ?");
+                ps.setString(1, status);
+                ps.setInt(2, nomor);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("Gagal update status: " + e.getMessage());
+            }
+        }
+    }
+
+    // Fungsi tambahan untuk memindahkannya ke tabel history
+    public void simpanHistoryDB(int nomor, String tipe) {
+        if (dbTersambung) {
+            try {
+                java.sql.PreparedStatement ps = conn.prepareStatement("INSERT INTO history (nomor, tipe) VALUES (?, ?)");
+                ps.setInt(1, nomor);
+                ps.setString(2, tipe);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("Gagal menyimpan ke history db: " + e.getMessage());
+            }
+        }
     }
 }

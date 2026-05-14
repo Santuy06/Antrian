@@ -1,11 +1,10 @@
-// ================== CODE 5 - CLASS USER SERVICE ==================
-// Dibuat oleh: Ghibran
-// Fungsi: User mengambil nomor antrian → generate via QueueManager → buat QueueItem
+// ================== CLASS USER SERVICE ==================
+// Fungsi: Mengatur pengambilan nomor antrian untuk pengunjung (Kios K)
 
 public class UserService {
 
-    private QueueManager queueManager;     // dari Daud (Code 2)
-    private StatusAntrian statusAntrian;   // dari Code 4
+    private QueueManager queueManager;     
+    private StatusAntrian statusAntrian;   
 
     public UserService(QueueManager queueManager, StatusAntrian statusAntrian) {
         this.queueManager = queueManager;
@@ -23,10 +22,17 @@ public class UserService {
         // Daftarkan ke StatusAntrian
         statusAntrian.tambahAntrian(nomor);
 
-        // Buat QueueItem dengan tipe
-        QueueItem item = new QueueItem(nomor, tipe);
+        // SYARAT PBO: POLYMORPHISM & INHERITANCE
+        // Membuat objek spesifik (RegulerItem / PrioritasItem) 
+        // tapi disimpan di variabel induk (QueueItem)
+        QueueItem item;
+        if (tipe.equalsIgnoreCase("prioritas")) {
+            item = new PrioritasItem(nomor);
+        } else {
+            item = new RegulerItem(nomor);
+        }
 
-        System.out.println("Nomor antrian Anda: " + nomor + " (tipe: " + tipe + ")");
+        System.out.println("Nomor antrian Anda: " + nomor + " (tipe: " + item.getType() + ")");
 
         return item;
     }

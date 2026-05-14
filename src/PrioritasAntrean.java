@@ -1,9 +1,8 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-// ================== CODE 6 - CLASS PRIORITAS ANTREAN ==================
+// ================== CLASS PRIORITAS ANTREAN ==================
 // Fungsi: Mengelola dua antrian — prioritas (VIP/Lansia) dan reguler
-// Diperbaiki: pakai QueueItem, bukan String
 
 public class PrioritasAntrean {
 
@@ -13,6 +12,14 @@ public class PrioritasAntrean {
     public PrioritasAntrean() {
         prioritas = new LinkedList<>();
         reguler = new LinkedList<>();
+    }
+
+    // Ambil daftar semua antrian (untuk API Web)
+    public java.util.List<QueueItem> getSemuaAntrian() {
+        java.util.List<QueueItem> list = new java.util.ArrayList<>();
+        list.addAll(prioritas);
+        list.addAll(reguler);
+        return list;
     }
 
     // Tambah item ke antrian sesuai tipenya

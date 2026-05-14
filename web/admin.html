@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petugas Loket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="back-btn">⬅ Kembali</a>
+        <div class="nav-title">Portal Petugas</div>
+    </nav>
+
+    <div class="container mt-l">
+        <div class="grid-admin">
+            <div class="admin-panel text-center">
+                <h2>Kontrol Antrian</h2>
+                <div class="current-call-box mt-m">
+                    <p>Sedang Dipanggil:</p>
+                    <h1 id="admin-current-number" class="huge-number text-primary">--</h1>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-warning btn-full" onclick="panggilBerikutnya()">
+                        🔊 Panggil
+                    </button>
+                    <button class="btn btn-success btn-full" onclick="selesaiLayanan()">
+                        ✅ Selesai
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-list panel">
+                <h3>Daftar Menunggu</h3>
+                <ul id="admin-waiting-list" class="waiting-list">
+                    <!-- JavaScript akan mengisi ini -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Auto-refresh untuk admin setiap 3 detik
+        setInterval(refreshAdminData, 3000);
+        refreshAdminData();
+    </script>
+</body>
+</html>

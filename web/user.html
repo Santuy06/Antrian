@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambil Antrian</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="back-btn">⬅ Kembali</a>
+        <div class="nav-title">Portal Pengunjung</div>
+    </nav>
+
+    <div class="container text-center mt-xl">
+        <h1>Ambil Nomor Antrian</h1>
+        <p class="subtitle mb-l">Pilih jenis layanan yang Anda butuhkan</p>
+
+        <div class="action-grid">
+            <button class="btn btn-primary btn-large" onclick="ambilAntrian('reguler')">
+                <span class="icon-large">👤</span>
+                <br>Reguler
+            </button>
+            <button class="btn btn-warning btn-large" onclick="ambilAntrian('prioritas')">
+                <span class="icon-large">⭐</span>
+                <br>Prioritas (Lansia/VIP)
+            </button>
+        </div>
+
+        <div id="result-box" class="result-box hidden">
+            <p>Nomor Antrian Anda:</p>
+            <h2 id="nomor-anda" class="huge-number">--</h2>
+            <p id="tipe-anda" class="badge">--</p>
+            <p class="mt-m text-muted">Silakan duduk dan tunggu nomor Anda dipanggil.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

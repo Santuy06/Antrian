@@ -1,8 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
 
-// ================== CODE 4 - CLASS STATUS ANTRIAN ==================
-// Dikonversi dari Python ke Java
+// ================== CLASS STATUS ANTRIAN ==================
+// Fungsi: Mengelola pembaruan tampilan dan label pada papan status antrian
 // Peran (Opsi B): PAPAN DISPLAY / MONITOR antrian saja
 // → Sumber kebenaran status tetap di QueueItem.status
 // → StatusAntrian hanya MENAMPILKAN ringkasan status semua antrian

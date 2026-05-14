@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Status Antrian</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="display-body">
+    <nav class="navbar dark-nav">
+        <a href="index.html" class="back-btn text-white">⬅ Kembali</a>
+        <div class="nav-title text-white">Papan Informasi Antrian</div>
+    </nav>
+
+    <div class="display-container">
+        <!-- Kolom Kiri: Nomor yang Dipanggil -->
+        <div class="call-section">
+            <h2 class="display-title">SEDANG DIPANGGIL</h2>
+            <div class="call-card pulse-anim">
+                <h1 id="display-current-number" class="mega-number">--</h1>
+                <p id="display-current-type" class="badge large-badge mt-m">--</p>
+            </div>
+            
+            <!-- Elemen audio untuk suara panggilan -->
+            <audio id="tingtong" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
+        </div>
+
+        <!-- Kolom Kanan: Daftar Menunggu -->
+        <div class="waiting-section">
+            <h2 class="display-title text-white">ANTRIAN SELANJUTNYA</h2>
+            <div class="waiting-cards" id="display-waiting-list">
+                <!-- Diisi oleh JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Auto-refresh papan setiap 2 detik
+        setInterval(refreshDisplayData, 2000);
+        refreshDisplayData();
+    </script>
+</body>
+</html>

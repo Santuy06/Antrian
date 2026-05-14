@@ -1,15 +1,16 @@
-// ================== CODE 3 - CLASS LOKET SERVICE ==================
-// Dibuat oleh: Riyan
+// ================== CLASS LOKET SERVICE ==================
 // Fungsi: Melayani antrian dari loket → ubah status QueueItem → sinkron ke papan display → kirim ke History
 
 public class LoketService {
 
-    private History history;           // dari Aryo (Code 1)
-    private StatusAntrian statusAntrian; // dari Code 4
+    private History history;           
+    private StatusAntrian statusAntrian; 
+    private QueueManager queueManager;   // Akses Database
 
-    public LoketService(History history, StatusAntrian statusAntrian) {
+    public LoketService(History history, StatusAntrian statusAntrian, QueueManager queueManager) {
         this.history = history;
         this.statusAntrian = statusAntrian;
+        this.queueManager = queueManager;
     }
 
     // Melayani antrian
@@ -33,8 +34,13 @@ public class LoketService {
         statusAntrian.sinkronStatus(item);
         System.out.println("Memanggil nomor: " + item.getQueueNumber());
 
-        // Simulasi pelayanan
+        // Simulasi pelayanan (hanya sampai memanggil, tombol selesai dipisah)
         System.out.println("Sedang melayani nomor " + item.getQueueNumber() + "...");
+    }
+
+    // Fungsi tombol "Selesai" dari web admin
+    public void selesaikan(QueueItem item) {
+        if (item == null) return;
 
         // [LOGIC] Ubah status di QueueItem
         item.setStatus("done");
@@ -42,7 +48,13 @@ public class LoketService {
         statusAntrian.sinkronStatus(item);
         System.out.println("Selesai nomor: " + item.getQueueNumber());
 
-        // Kirim ke history
+        // Update database queue_items menjadi done (via QueueManager)
+        queueManager.updateStatus(item.getQueueNumber(), "done");
+        
+        // Simpan ke tabel history database (via QueueManager)
+        queueManager.simpanHistoryDB(item.getQueueNumber(), item.getType());
+
+        // Simpan ke array history memory
         history.addToHistory(item);
     }
 }
