@@ -31,8 +31,8 @@ public class Main {
             server.setExecutor(null); // Gunakan default executor
             server.start();
             
-            System.out.println("\n✅ Server Web berhasil berjalan!");
-            System.out.println("👉 Buka di browser: http://localhost:8080");
+            System.out.println("\n Server Web berhasil berjalan!");
+            System.out.println(" Buka di browser: http://localhost:8080");
             
         } catch (IOException e) {
             System.out.println("Gagal memulai server: " + e.getMessage());

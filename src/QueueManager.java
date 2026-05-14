@@ -46,16 +46,17 @@ public class QueueManager {
     }
 
     // Generate nomor otomatis + simpan ke DB (atau simulasi)
-    public void generateNomor() {
+    public void generateNomor(String tipe) {
         nomorTerakhir++;
 
         if (dbTersambung) {
             try {
                 PreparedStatement ps = conn.prepareStatement(
-                        "INSERT INTO queue_items (nomor, status) VALUES (?, ?)"
+                        "INSERT INTO queue_items (nomor, tipe, status) VALUES (?, ?, ?)"
                 );
                 ps.setInt(1, nomorTerakhir);
-                ps.setString(2, "waiting");
+                ps.setString(2, tipe);
+                ps.setString(3, "waiting");
                 ps.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -92,9 +93,10 @@ public class QueueManager {
     public void simpanHistoryDB(int nomor, String tipe) {
         if (dbTersambung) {
             try {
-                java.sql.PreparedStatement ps = conn.prepareStatement("INSERT INTO history (nomor, tipe) VALUES (?, ?)");
+                java.sql.PreparedStatement ps = conn.prepareStatement("INSERT INTO history (nomor, tipe, waktu_masuk) VALUES (?, ?, (SELECT waktu_masuk FROM queue_items WHERE nomor = ?))");
                 ps.setInt(1, nomor);
                 ps.setString(2, tipe);
+                ps.setInt(3, nomor);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Gagal menyimpan ke history db: " + e.getMessage());

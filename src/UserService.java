@@ -14,7 +14,7 @@ public class UserService {
     // User ambil nomor antrian dengan tipe tertentu (prioritas/reguler)
     public QueueItem ambilNomor(String tipe) {
         // Generate nomor dari QueueManager (simpan ke DB)
-        queueManager.generateNomor();
+        queueManager.generateNomor(tipe);
 
         // Ambil nomor yang baru di-generate
         int nomor = queueManager.getNomorTerakhir();
